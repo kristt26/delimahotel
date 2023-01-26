@@ -114,14 +114,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Input data fasilitas</h4>
-                                    <form class="forms-sample" ng-submit="save()">
+                                    <form class="forms-sample" ng-submit="saveFasilitas(modell)">
                                         <div class="form-group">
                                             <label for="nama">Fasilitas</label>
-                                            <input type="text" class="form-control form-control-sm" ng-model="modell.fasilitas" placeholder="Fasilitas">
+                                            <input type="text" class="form-control form-control-sm" ng-model="modell.fasilitas" placeholder="Fasilitas" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Photo</label>
-                                            <input type="text" class="form-control form-control-sm" ng-model="modell.file" placeholder="Ukuran Kamar">
+                                            <input type="file" class="form-control form-control-sm" accept="image/*, application/pdf" id="berkas_baptis" ng-model="modell.file" base-sixty-four-input required>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                         <button class="btn btn-light">Cancel</button>
@@ -147,9 +147,9 @@
                                                 <tr ng-repeat="item in dataKamar.fasilitas">
                                                     <td>{{$index+1}}</td>
                                                     <td>{{item.fasilitas}}</td>
-                                                    <td>{{item.foto}}</td>
+                                                    <td>{{item.photo}}</td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm" ng-click="edit(item)"><i class="mdi mdi-pencil"></i></button>
+                                                        <button class="btn btn-warning btn-sm" ng-click="itemFasilitas(item)"><i class="mdi mdi-pencil"></i></button>
                                                         <button class="btn btn-primary btn-sm" ng-click="setDetail(item)" data-toggle="modal" data-target="#fasilitas"><i class="mdi mdi-file"></i></button>
                                                     </td>
                                                 </tr>

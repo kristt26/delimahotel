@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\JenisModel;
 use App\Models\FasilitasModel;
+use App\Libraries\Decode;
 
 class Jenis extends BaseController
 {
@@ -14,6 +15,7 @@ class Jenis extends BaseController
     {
         $this->jenis = new JenisModel();
         $this->fasilitas = new FasilitasModel();
+        $this->decode = new Decode();
     }
 
     public function index()

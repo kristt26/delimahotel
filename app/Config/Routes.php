@@ -45,6 +45,12 @@ $routes->group('jenis', function ($routes) {
     $routes->put('put', 'Admin\Jenis::put');
 });
 
+$routes->group('fasilitas', function ($routes) {
+    $routes->get('store', 'Admin\Fasilitas::store');
+    $routes->post('post', 'Admin\Fasilitas::post');
+    $routes->put('put', 'Admin\Fasilitas::put');
+});
+
 $routes->group('kamar', function ($routes) {
     $routes->get('', 'Admin\Kamar::index');
 });

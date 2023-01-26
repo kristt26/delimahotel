@@ -36,7 +36,7 @@ function dashboardController($scope, dashboardServices) {
     // })
 }
 
-function jenisController($scope, jenisServices, pesan) {
+function jenisController($scope, jenisServices, pesan, fasilitasServices) {
     $scope.$emit("SendUp", "Jenis Kamar");
     $scope.datas = {};
     $scope.model = {};
@@ -66,12 +66,38 @@ function jenisController($scope, jenisServices, pesan) {
         })
     }
 
+    $scope.saveFasilitas = (item) => {
+        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            if (item.id) {
+                fasilitasServices.put(item).then(res => {
+                    $scope.dataKamar = {};
+                    pesan.Success("Berhasil mengubah data");
+                })
+            } else {
+                fasilitasServices.post(item).then(res => {
+                    $scope.dataKamar.fasilitas.push(res);
+                    var id = angular.copy($scope.modell.jenis_kamar_id);
+                    $scope.modell = {};
+                    $scope.modell.jenis_kamar_id = id;
+                    pesan.Success("Berhasil menambah data");
+                })
+            }
+        })
+    }
+
     $scope.edit = (item) => {
         $scope.model = angular.copy(item);
     }
 
     $scope.setDetail = (item) => {
-        $scope.dataKamar = angular.copy(item);
+        $scope.dataKamar = item;
+        $scope.modell = {};
+        $scope.modell.jenis_kamar_id = item.id;
+        console.log($scope.modell);
+    }
+
+    $scope.itemFasilitas = (item) => {
+        $scope.modell = item;
     }
 
     $scope.delete = (param) => {

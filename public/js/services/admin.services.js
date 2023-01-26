@@ -2,7 +2,7 @@ angular.module('admin.service', [])
     // admin
     .factory('dashboardServices', dashboardServices)
     .factory('jenisServices', jenisServices)
-    .factory('kspServices', kspServices)
+    .factory('fasilitasServices', fasilitasServices)
     .factory('keluargaServices', keluargaServices)
     .factory('anggotaServices', anggotaServices)
     .factory('gerejaServices', gerejaServices)
@@ -170,8 +170,8 @@ function jenisServices($http, $q, helperServices, AuthService, pesan) {
 
 }
 
-function kspServices($http, $q, helperServices, AuthService, pesan) {
-    var controller = helperServices.url + 'ksp/';
+function fasilitasServices($http, $q, helperServices, AuthService, pesan) {
+    var controller = helperServices.url + 'fasilitas/';
     var service = {};
     service.data = [];
     return {
@@ -209,10 +209,6 @@ function kspServices($http, $q, helperServices, AuthService, pesan) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.find(x => x.id == param.wijk_id);
-                if (data) {
-                    data.ksp.push(res.data);
-                }
                 def.resolve(res.data);
             },
             (err) => {
