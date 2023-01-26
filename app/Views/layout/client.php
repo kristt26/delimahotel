@@ -130,7 +130,8 @@
                     <div class="col-lg-2">
                         <div class="logo">
                             <a href="./index.html">
-                                <img src="<?= base_url() ?>/assets/client/img/logo.png" alt="">
+                                <h3>Dani Hotel</h3>
+                                <!-- <img src="<?= base_url() ?>/assets/client/img/logo.png" alt=""> -->
                             </a>
                         </div>
                     </div>
@@ -138,25 +139,15 @@
                         <div class="nav-menu">
                             <nav class="mainmenu">
                                 <ul>
-                                    <li class="active"><a href="<?= base_url() ?>">Home</a></li>
+                                    <li><a href="<?= base_url() ?>">Home</a></li>
                                     <li><a href="<?= base_url('rooms') ?>">Rooms</a></li>
                                     <li><a href="<?= base_url('about') ?>">About Us</a></li>
-                                    <li><a href="<?= base_url('about') ?>">About Us</a></li>
-                                    <li><a href="./pages.html">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="./room-details.html">Room Details</a></li>
-                                            <li><a href="./blog-details.html">Blog Details</a></li>
-                                            <li><a href="#">Family Room</a></li>
-                                            <li><a href="#">Premium Room</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="./blog.html">News</a></li>
                                     <li><a href="./contact.html">Contact</a></li>
                                 </ul>
                             </nav>
-                            <div class="nav-right search-switch">
+                            <!-- <div class="nav-right search-switch">
                                 <i class="icon_search"></i>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -178,7 +169,8 @@
                         <div class="ft-about">
                             <div class="logo">
                                 <a href="#">
-                                    <img src="<?= base_url() ?>/assets/client/img/footer-logo.png" alt="">
+                                    <h3>Dani Hotel</h3>
+                                    <!-- <img src="<?= base_url() ?>/assets/client/img/footer-logo.png" alt=""> -->
                                 </a>
                             </div>
                             <p>We inspire and reach millions of travelers<br /> across 90 local websites</p>

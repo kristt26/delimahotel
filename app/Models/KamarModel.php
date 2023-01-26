@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class KamarModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'kamars';
+    protected $table            = 'kamar';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['kode_kamar', 'jenis_kamar_id'];
 
     // Dates
     protected $useTimestamps = false;

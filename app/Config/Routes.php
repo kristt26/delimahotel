@@ -33,6 +33,7 @@ $routes->get('/', 'Home::index');
 $routes->group('auth', function ($routes) {
     $routes->get('', 'Auth::index');
     $routes->post('login', 'Auth::login');
+    $routes->get('logout', 'Auth::logout');
 });
 $routes->group('dashboard', function ($routes) {
     $routes->get('', 'Admin\Dashboard::index');
@@ -53,6 +54,10 @@ $routes->group('fasilitas', function ($routes) {
 
 $routes->group('kamar', function ($routes) {
     $routes->get('', 'Admin\Kamar::index');
+    $routes->get('store', 'Admin\Kamar::store');
+    $routes->post('post', 'Admin\Kamar::post');
+    $routes->put('put', 'Admin\Kamar::put');
+    $routes->delete('delete/(:any)', 'Admin\Kamar::deleted/$1');
 });
 
 $routes->group('reservasi', function ($routes) {

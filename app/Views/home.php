@@ -10,10 +10,10 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="hero-text">
-                    <h1>Sona A Luxury Hotel</h1>
-                    <p>Here are the best hotel booking sites, including recommendations for international
-                        travel and for finding low-priced hotel rooms.</p>
-                    <a href="#" class="primary-btn">Discover Now</a>
+                    <h1>Dani Hotel</h1>
+                    <p>Ini adalah situs pemesanan hotel terbaik, termasuk rekomendasi untuk perjalanan 
+                        internasional dan untuk menemukan kamar hotel dengan harga murah.</p>
+                    <!-- <a href="#" class="primary-btn">Discover Now</a> -->
                 </div>
             </div>
             <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
@@ -51,9 +51,9 @@
         </div>
     </div>
     <div class="hero-slider owl-carousel">
-        <div class="hs-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/hero/hero-1.jpg"></div>
-        <div class="hs-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/hero/hero-2.jpg"></div>
-        <div class="hs-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/hero/hero-3.jpg"></div>
+        <div class="hs-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/hero/slide1.jpg"></div>
+        <div class="hs-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/hero/slide2.jpg"></div>
+        <div class="hs-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/hero/slide3.jpg"></div>
     </div>
 </section>
 <!-- Hero Section End -->
@@ -66,14 +66,11 @@
                 <div class="about-text">
                     <div class="section-title">
                         <span>About Us</span>
-                        <h2>Intercontinental LA <br />Westlake Hotel</h2>
+                        <h2>Hotel Murah <br />Dani Hotel</h2>
                     </div>
-                    <p class="f-para">Sona.com is a leading online accommodation site. We’re passionate about
-                        travel. Every day, we inspire and reach millions of travelers across 90 local websites in 41
-                        languages.</p>
-                    <p class="s-para">So when it comes to booking the perfect hotel, vacation rental, resort,
-                        apartment, guest house, or tree house, we’ve got you covered.</p>
-                    <a href="#" class="primary-btn about-btn">Read More</a>
+                    <p class="f-para">Hotel Dani adalah salah satu hotel yang berada di kota jayapura. Bagi yang menyukai perjalanan, kami menginspirasi dan menjangkau banyak wisatawan yang berkunjung ke di kota jayaputa.</p>
+                    <p class="s-para">Jadi ketika datang ke kota Jayapura dan ingin memesan hotel yang sempurna, persewaan liburan, resor, kami siap membantu Anda.</p>
+                    <!-- <a href="#" class="primary-btn about-btn">Read More</a> -->
                 </div>
             </div>
             <div class="col-lg-6">
@@ -100,7 +97,7 @@
             <div class="col-lg-12">
                 <div class="section-title">
                     <span>What We Do</span>
-                    <h2>Discover Our Services</h2>
+                    <h2>Temukan Layanan Kami</h2>
                 </div>
             </div>
         </div>
@@ -109,48 +106,42 @@
                 <div class="service-item">
                     <i class="flaticon-036-parking"></i>
                     <h4>Travel Plan</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                    <p>Gunakan jasa menyusun rencana perjalanan wisata dari Dani Hotel untuk membantu membuat rencana liburan agar lebih terorganisir dengan harga terjangkau. Buat liburan Anda lebih gampang dan hemat waktu.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-033-dinner"></i>
                     <h4>Catering Service</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                    <p>Kami menyedialan layanan Catering Service bagi anda yang ingin membuat acara tapi tidak ingin repot dengan urusan masak-memasak, gunakan layanan kami untuk menyukseskan kegiatan anda.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-026-bed"></i>
                     <h4>Babysitting</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                    <p>Bagi yang memiliki buah hati tapi sibuk dengan carier, kami menyediakan layanan pengasuh anak bagi anda, segera hubungi kami</p>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-024-towel"></i>
                     <h4>Laundry</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                    <p>Kami menyediakan layanan Laundry bagi anda yang ingin tinggal lebih lama, layanan Laundry kami melayani berbagai jenis Laundry sesuai kebutuhan anda.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-044-clock-1"></i>
                     <h4>Hire Driver</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                    <p>Jika anda ingin berwisata dengan santai kami memiliki layanan Driver yang siap mengantar antar kemanapun anda ingin  bepergian.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="service-item">
                     <i class="flaticon-012-cocktail"></i>
                     <h4>Bar & Drink</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna.</p>
+                    <p>Suntuk di kamar, anda ingin hiburan? segera kunjungi Bar yang kami miliki.</p>
                 </div>
             </div>
         </div>
@@ -163,36 +154,39 @@
     <div class="container-fluid">
         <div class="hp-room-items">
             <div class="row">
+                <?php foreach($data as $key=>$value):?>
                 <div class="col-lg-3 col-md-6">
-                    <div class="hp-room-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/room/room-b1.jpg">
+                    <div class="hp-room-item set-bg" data-setbg="<?= base_url() ?>/photo/<?=$value->fasilitas[0]['photo']?>">
                         <div class="hr-text">
-                            <h3>Double Room</h3>
-                            <h2>199$<span>/Pernight</span></h2>
+                            <h3><?= $value->nama?></h3>
+                            <h2><?= $value->price?><span>/Pernight</span></h2>
                             <table>
                                 <tbody>
                                     <tr>
                                         <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
+                                        <td><?= $value->ukuran?></td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
+                                        <td><?= $value->kapasitas?></td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
+                                        <td><?= $value->bad?></td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
+                                        <td><?= $value->service?></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="#" class="primary-btn">More Details</a>
+                            <!-- <a href="#" class="primary-btn">More Details</a> -->
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+
+                <?php endforeach?>
+                <!-- <div class="col-lg-3 col-md-6">
                     <div class="hp-room-item set-bg" data-setbg="<?= base_url() ?>/assets/client/img/room/room-b2.jpg">
                         <div class="hr-text">
                             <h3>Premium King Room</h3>
@@ -278,7 +272,7 @@
                             <a href="#" class="primary-btn">More Details</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -286,7 +280,7 @@
 <!-- Home Room Section End -->
 
 <!-- Testimonial Section Begin -->
-<section class="testimonial-section spad">
+<!-- <section class="testimonial-section spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -337,11 +331,11 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- Testimonial Section End -->
 
 <!-- Blog Section Begin -->
-<section class="blog-section spad">
+<!-- <section class="blog-section spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -399,6 +393,6 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- Blog Section End -->
 <?= $this->endSection() ?>

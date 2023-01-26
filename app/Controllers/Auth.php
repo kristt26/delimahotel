@@ -9,6 +9,7 @@ use App\Models\UserModel;
 class Auth extends BaseController
 {
     use ResponseTrait;
+    protected $user;
     public function __construct()
     {
         $this->user = new UserModel();
@@ -45,5 +46,12 @@ class Auth extends BaseController
         } else {
             return $this->failNotFound('Akun tidak terdaftar');
         }
+    }
+
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to(base_url('auth'));
     }
 }
