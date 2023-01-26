@@ -30,10 +30,32 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('auth', 'Auth::index');
-$routes->group('dashboard', function($routes){
+$routes->group('auth', function ($routes) {
+    $routes->get('', 'Auth::index');
+    $routes->post('login', 'Auth::login');
+});
+$routes->group('dashboard', function ($routes) {
     $routes->get('', 'Admin\Dashboard::index');
-}); 
+});
+
+$routes->group('jenis', function ($routes) {
+    $routes->get('', 'Admin\Jenis::index');
+    $routes->get('store', 'Admin\Jenis::store');
+    $routes->post('post', 'Admin\Jenis::post');
+    $routes->put('put', 'Admin\Jenis::put');
+});
+
+$routes->group('kamar', function ($routes) {
+    $routes->get('', 'Admin\Kamar::index');
+});
+
+$routes->group('reservasi', function ($routes) {
+    $routes->get('', 'Admin\Reservasi::index');
+});
+
+$routes->group('rooms', function ($routes) {
+    $routes->get('', 'Rooms::index');
+});
 
 /*
  * --------------------------------------------------------------------
