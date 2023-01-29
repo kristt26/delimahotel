@@ -62,10 +62,18 @@ $routes->group('kamar', function ($routes) {
 
 $routes->group('reservasi', function ($routes) {
     $routes->get('', 'Admin\Reservasi::index');
+    $routes->get('store', 'Admin\Reservasi::store');
+    $routes->put('put', 'Admin\Reservasi::update');
 });
 
 $routes->group('rooms', function ($routes) {
     $routes->get('', 'Rooms::index');
+});
+
+$routes->group('booking', function ($routes) {
+    $routes->get('', 'Booking::index');
+    $routes->get('store', 'Booking::store');
+    $routes->post('post', 'Booking::post');
 });
 
 /*

@@ -3,6 +3,7 @@ angular.module('adminctrl', [])
     .controller('dashboardController', dashboardController)
     .controller('jenisController', jenisController)
     .controller('kamarController', kamarController)
+    .controller('reservasiController', reservasiController)
 
     ;
 
@@ -118,6 +119,52 @@ function kamarController($scope, kamarServices, pesan) {
     $scope.delete = (param) => {
         pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
             kamarServices.deleted(param).then(res => {
+                pesan.Success("Berhasil menghapus data");
+            })
+        });
+    }
+}
+function reservasiController($scope, reservasiServices, pesan) {
+    $scope.$emit("SendUp", "Data Kamar");
+    $scope.datas = {};
+    $scope.model = {};
+    $scope.statusTabs = "Reservasi";
+    reservasiServices.get().then((res) => {
+        $scope.reservasi = res.filter(x=>x.status=='Reservasi');
+        $scope.inap = res.filter(x=>x.status=='Terisi');
+        $scope.kosong = res.filter(x=>x.status=='Kosong');
+    })
+
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            reservasiServices.put($scope.model).then(res => {
+                if($scope.statusTabs=='Reservasi'){
+                    $scope.inap.push(angular.copy($scope.model));
+                    var index = $scope.reservasi.indexOf($scope.model);
+                    $scope.reservasi.splice(index, 1);
+                }else if($scope.statusTabs=='Inap'){
+                    $scope.kosong.push(angular.copy($scope.model));
+                    var index = $scope.inap.indexOf($scope.model);
+                    $scope.inap.splice(index, 1);
+                }
+                $scope.model = {};
+                $('#fasilitas').modal('hide');
+                pesan.Success("Berhasil mengubah data");
+
+            })
+        })
+    }
+
+    $scope.edit = (item) => {
+        $scope.model = item;
+    }
+
+    $scope.setTabs =(item)=>{
+        $scope.statusTabs = item;
+    }
+    $scope.delete = (param) => {
+        pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
+            reservasiServices.deleted(param).then(res => {
                 pesan.Success("Berhasil menghapus data");
             })
         });

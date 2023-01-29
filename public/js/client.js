@@ -11,38 +11,11 @@ angular.module('client', [
     'ngAnimate',
     'ui.router',
     'ui.select2',
-    "component"
 
 ])
     .controller('indexController', indexController)
     .directive('emaudio', emaudio)
     .controller('formController', formController)
-    .config(function ($stateProvider, $urlRouterProvider) {
-        $stateProvider
-            .state('add', {
-                url: '/add',
-                templateUrl: '../../assets/apps/form.html',
-                controller: 'formController'
-            })
-            .state('data', {
-                url: '/data',
-                templateUrl: '../../assets/apps/data.html',
-                controller: 'formController'
-            })
-            .state('add.keluarga', {
-                url: '/keluarga',
-                templateUrl: '../../assets/apps/form-profile.html'
-            })
-            .state('add.anggota', {
-                url: '/anggota',
-                templateUrl: '../../assets/apps/form-interests.html'
-            })
-            .state('add.finish', {
-                url: '/finish',
-                templateUrl: '../../assets/apps/form-finish.html'
-            });
-        $urlRouterProvider.otherwise('/data');
-    })
     ;
 
 

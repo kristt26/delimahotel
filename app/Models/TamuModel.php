@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class TamuModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'tamus';
+    protected $table            = 'tamu';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['nama','gender','alamat','telp','email'];
 
     // Dates
     protected $useTimestamps = false;
