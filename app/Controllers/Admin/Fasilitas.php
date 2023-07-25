@@ -3,13 +3,13 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use CodeIgniter\API\ResponseTrait;
 use App\Models\FasilitasModel;
 use App\Libraries\Decode;
 
 class Fasilitas extends BaseController
 {
-    use ResponseTrait;
+    protected $fasilitas;
+    protected $decode;
     public function __construct()
     {
         $this->fasilitas = new FasilitasModel();

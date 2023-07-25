@@ -60,8 +60,38 @@ $routes->group('kamar', function ($routes) {
     $routes->delete('delete/(:any)', 'Admin\Kamar::deleted/$1');
 });
 
+$routes->group('tambahan', function ($routes) {
+    $routes->get('', 'Admin\Tambahan::index');
+    $routes->get('store', 'Admin\Tambahan::store');
+    $routes->post('post', 'Admin\Tambahan::post');
+    $routes->put('put', 'Admin\Tambahan::put');
+    $routes->delete('delete/(:any)', 'Admin\Tambahan::deleted/$1');
+});
+
+$routes->group('menu', function ($routes) {
+    $routes->get('', 'Admin\Menu::index');
+    $routes->get('store', 'Admin\Menu::store');
+    $routes->post('post', 'Admin\Menu::post');
+    $routes->put('put', 'Admin\Menu::put');
+    $routes->delete('delete/(:any)', 'Admin\Menu::deleted/$1');
+});
+
+$routes->group('laundry', function ($routes) {
+    $routes->get('', 'Admin\Laundry::index');
+    $routes->get('store', 'Admin\Laundry::store');
+    $routes->post('post', 'Admin\Laundry::post');
+    $routes->put('put', 'Admin\Laundry::put');
+    $routes->delete('delete/(:any)', 'Admin\Laundry::deleted/$1');
+});
+
+
+
+
+
+
 $routes->group('reservasi', function ($routes) {
     $routes->get('', 'Admin\Reservasi::index');
+    $routes->get('pesanan_add', 'Admin\Reservasi::tambah');
     $routes->get('store', 'Admin\Reservasi::store');
     $routes->put('put', 'Admin\Reservasi::update');
 });

@@ -3,7 +3,6 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use CodeIgniter\API\ResponseTrait;
 use App\Models\JenisModel;
 use App\Models\KamarModel;
 use App\Models\ReservasiModel;
@@ -11,7 +10,6 @@ use App\Models\TamuModel;
 
 class Reservasi extends BaseController
 {
-    use ResponseTrait;
     protected $reservasi;
     public function __construct() {
         $this->reservasi = new ReservasiModel();
@@ -19,6 +17,11 @@ class Reservasi extends BaseController
     public function index()
     {
         return view('admin/reservasi');
+    }
+
+    public function tambah()
+    {
+        return view('admin/tambah_reservasi');
     }
 
     public function store()

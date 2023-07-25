@@ -10,96 +10,102 @@
             </div>
         </div>
     </div>
-    <div class="card">
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" ng-click="setTabs('Reservasi')" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Reservasi</a>
-                <!-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Pesan Langsung</a> -->
-                <a class="nav-item nav-link" id="nav-contact-tab" ng-click="setTabs('Inap')" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Daftar Inap</a>
-            </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="col-md-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Daftar Reservasi</h4>
-                                <!-- <button type="button" class="btn btn-primary">Reservasi</button> -->
+    <div class="grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <nav class="d-flex justify-content-between">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" ng-click="setTabs('Reservasi')" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Reservasi</a>
+                        <!-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Pesan Langsung</a> -->
+                        <a class="nav-item nav-link" id="nav-contact-tab" ng-click="setTabs('Inap')" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Daftar Inap</a>
+                    </div>
+                    <button class="btn btn-primary btn-rounded btn-icon" onclick="document.location.href='<?= base_url('reservasi/pesanan_add')?>'"><i class="ti-plus" aria-hidden="true"></i></button>
+                </nav>
+                <hr>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h4 class="card-title">Daftar Reservasi</h4>
+                                        <!-- <button type="button" class="btn btn-primary">Reservasi</button> -->
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td>No</td>
+                                                    <td>Tamu</td>
+                                                    <td>Check In</td>
+                                                    <td>Check Out</td>
+                                                    <td>Jenis Kamar</td>
+                                                    <td>No. Kamar</td>
+                                                    <td><i class="mdi mdi-settings"></i></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in reservasi">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{item.nama}}</td>
+                                                    <td>{{item.checkin}}</td>
+                                                    <td>{{item.checkout}}</td>
+                                                    <td>{{item.jenis_kamar}}</td>
+                                                    <td>{{item.kode_kamar}}</td>
+                                                    <td>
+                                                        <button class="btn btn-info btn-sm" ng-click="edit(item)" data-toggle="modal" data-target="#fasilitas"><i class="mdi mdi-file"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <td>No</td>
-                                            <td>Tamu</td>
-                                            <td>Check In</td>
-                                            <td>Check Out</td>
-                                            <td>Jenis Kamar</td>
-                                            <td>No. Kamar</td>
-                                            <td><i class="mdi mdi-settings"></i></td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in reservasi">
-                                            <td>{{$index+1}}</td>
-                                            <td>{{item.nama}}</td>
-                                            <td>{{item.checkin}}</td>
-                                            <td>{{item.checkout}}</td>
-                                            <td>{{item.jenis_kamar}}</td>
-                                            <td>{{item.kode_kamar}}</td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm" ng-click="edit(item)" data-toggle="modal" data-target="#fasilitas"><i class="mdi mdi-file"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h4 class="card-title">Daftar Inap</h4>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td>No</td>
+                                                    <td>Tamu</td>
+                                                    <td>Check In</td>
+                                                    <td>Check Out</td>
+                                                    <td>Jenis Kamar</td>
+                                                    <td>No. Kamar</td>
+                                                    <td><i class="mdi mdi-settings"></i></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in inap">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{item.nama}}</td>
+                                                    <td>{{item.checkin}}</td>
+                                                    <td>{{item.checkout}}</td>
+                                                    <td>{{item.jenis_kamar}}</td>
+                                                    <td>{{item.kode_kamar}}</td>
+                                                    <td>
+                                                        <button class="btn btn-info btn-sm" ng-click="edit(item)" data-toggle="modal" data-target="#fasilitas"><i class="mdi mdi-file"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <div class="col-md-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Daftar Inap</h4>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <td>No</td>
-                                            <td>Tamu</td>
-                                            <td>Check In</td>
-                                            <td>Check Out</td>
-                                            <td>Jenis Kamar</td>
-                                            <td>No. Kamar</td>
-                                            <td><i class="mdi mdi-settings"></i></td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in inap">
-                                            <td>{{$index+1}}</td>
-                                            <td>{{item.nama}}</td>
-                                            <td>{{item.checkin}}</td>
-                                            <td>{{item.checkout}}</td>
-                                            <td>{{item.jenis_kamar}}</td>
-                                            <td>{{item.kode_kamar}}</td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm" ng-click="edit(item)" data-toggle="modal" data-target="#fasilitas"><i class="mdi mdi-file"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    
         </div>
-
     </div>
     <div class="modal fade" id="fasilitas" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">

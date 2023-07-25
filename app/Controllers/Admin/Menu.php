@@ -3,33 +3,27 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\JenisModel;
-use App\Models\FasilitasModel;
 use App\Libraries\Decode;
+use App\Models\MenuModel;
 
-class Jenis extends BaseController
+class Menu extends BaseController
 {
-    protected $jenis;
-    protected $fasilitas;
+    protected $menu;
     protected $decode;
     public function __construct()
     {
-        $this->jenis = new JenisModel();
-        $this->fasilitas = new FasilitasModel();
+        $this->menu = new MenuModel();
         $this->decode = new Decode();
     }
 
     public function index()
     {
-        return view('admin/jenis');
+        return view('admin/menu');
     }
 
     public function store()
     {
-        $jenis = $this->jenis->asObject()->findAll();
-        foreach ($jenis as $key => $value) {
-            $value->fasilitas = $this->fasilitas->where('jenis_kamar_id', $value->id)->findAll();
-        }
+        $jenis = $this->menu->findAll();
         return $this->respond($jenis);
     }
 
@@ -37,8 +31,8 @@ class Jenis extends BaseController
     {
         $data = $this->request->getJSON();
         try {
-            $this->jenis->insert($data);
-            $data->id = $this->jenis->getInsertID();
+            $this->menu->insert($data);
+            $data->id = $this->menu->getInsertID();
             return $this->respond($data);
         } catch (\Throwable $th) {
             return $this->fail($th->getMessage());
@@ -49,7 +43,7 @@ class Jenis extends BaseController
     {
         $data = $this->request->getJSON();
         try {
-            $this->jenis->update($data->id, ['nama' => $data->nama, 'ukuran' => $data->ukuran, 'kapasitas' => $data->kapasitas, 'bad' => $data->bad, 'service' => $data->service, 'price' => $data->price]);
+            $this->menu->update($data->id, $data);
             return $this->respond($data);
         } catch (\Throwable $th) {
             return $this->fail($th->getMessage());
@@ -58,7 +52,7 @@ class Jenis extends BaseController
 
     public function deleted($id)
     {
-        $this->jenis->delete($id);
+        $this->menu->delete($id);
         return $this->respondDeleted(true);
     }
 }

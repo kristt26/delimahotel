@@ -7,7 +7,7 @@ angular.module('apps', [
     'message.service',
     'ngLocale',
     'datatables',
-    // 'cur.$mask',
+    'ui.utils.masks',
     'ngAnimate',
     'ngSanitize',
     'ui.router',
@@ -55,7 +55,6 @@ function indexController($scope, helperServices, dashboardServices) {
     });
     dashboardServices.getLayanan().then(res=>{
         $scope.layanan = res;
-        $scope.menuLayanan = res.baptis+res.sidi+res.nikah;
     })
     
 }

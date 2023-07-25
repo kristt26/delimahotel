@@ -4,6 +4,10 @@ angular.module('adminctrl', [])
     .controller('jenisController', jenisController)
     .controller('kamarController', kamarController)
     .controller('reservasiController', reservasiController)
+    .controller('tambahanController', tambahanController)
+    .controller('laundryController', laundryController)
+    .controller('menuController', menuController)
+    .controller('addController', addController)
 
     ;
 
@@ -165,6 +169,186 @@ function reservasiController($scope, reservasiServices, pesan) {
     $scope.delete = (param) => {
         pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
             reservasiServices.deleted(param).then(res => {
+                pesan.Success("Berhasil menghapus data");
+            })
+        });
+    }
+}
+function tambahanController($scope, tambahanServices, pesan) {
+    $scope.$emit("SendUp", "Data Kamar");
+    $scope.datas = [];
+    $scope.model = {};
+    $scope.statusTabs = "Reservasi";
+    tambahanServices.get().then((res) => {
+        $scope.datas = res;
+    })
+
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            if($scope.model.id){
+                tambahanServices.put($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }else{
+                tambahanServices.post($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }
+        })
+    }
+
+    $scope.edit = (item) => {
+        $scope.model = item;
+    }
+
+    $scope.setTabs =(item)=>{
+        $scope.statusTabs = item;
+    }
+    $scope.delete = (param) => {
+        pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
+            tambahanServices.deleted(param).then(res => {
+                pesan.Success("Berhasil menghapus data");
+            })
+        });
+    }
+}
+
+function laundryController($scope, laundryServices, pesan) {
+    $scope.$emit("SendUp", "Data Kamar");
+    $scope.datas = [];
+    $scope.model = {};
+    $scope.statusTabs = "Reservasi";
+    laundryServices.get().then((res) => {
+        $scope.datas = res;
+    })
+
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            if($scope.model.id){
+                laundryServices.put($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }else{
+                laundryServices.post($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }
+        })
+    }
+
+    $scope.edit = (item) => {
+        $scope.model = item;
+    }
+
+    $scope.setTabs =(item)=>{
+        $scope.statusTabs = item;
+    }
+    $scope.delete = (param) => {
+        pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
+            laundryServices.deleted(param).then(res => {
+                pesan.Success("Berhasil menghapus data");
+            })
+        });
+    }
+}
+
+function menuController($scope, menuServices, pesan) {
+    $scope.$emit("SendUp", "Data Menu Makanan");
+    $scope.datas = [];
+    $scope.model = {};
+    $scope.statusTabs = "Reservasi";
+    menuServices.get().then((res) => {
+        $scope.datas = res;
+    })
+
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            if($scope.model.id){
+                menuServices.put($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }else{
+                menuServices.post($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }
+        })
+    }
+
+    $scope.edit = (item) => {
+        $scope.model = item;
+    }
+
+    $scope.setTabs =(item)=>{
+        $scope.statusTabs = item;
+    }
+    $scope.delete = (param) => {
+        pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
+            menuServices.deleted(param).then(res => {
+                pesan.Success("Berhasil menghapus data");
+            })
+        });
+    }
+}
+function addController($scope, reservasiServices, pesan) {
+    $scope.$emit("SendUp", "Data Menu Makanan");
+    $scope.datas = [];
+    $scope.model = {};
+    $scope.statusTabs = "Reservasi";
+    $scope.view = "";
+    var item = sessionStorage.getItem('biodata');
+    if(item){
+        item = JSON.parse(item);
+        $scope.model = item;
+        $scope.view = item.view;
+    }
+    $scope.next = (param)=>{
+        $scope.model.view = param;
+        $scope.model.tambahan = [];
+        $scope.model.laundry = [];
+        $scope.model.menu = [];
+        sessionStorage.setItem('biodata', JSON.stringify($scope.model));
+    }
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            if($scope.model.id){
+                menuServices.put($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }else{
+                menuServices.post($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }
+        })
+    }
+
+    $scope.edit = (item) => {
+        $scope.model = item;
+    }
+
+    $scope.setTabs =(item)=>{
+        $scope.statusTabs = item;
+    }
+    $scope.delete = (param) => {
+        pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
+            menuServices.deleted(param).then(res => {
                 pesan.Success("Berhasil menghapus data");
             })
         });
