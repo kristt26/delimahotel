@@ -118,7 +118,7 @@ function kamarController($scope, kamarServices, pesan) {
 
     $scope.edit = (item) => {
         $scope.model = angular.copy(item);
-        $scope.jenis = $scope.datas.jenis.find(x=>x.id==item.jenis_kamar_id);
+        $scope.jenis = $scope.datas.jenis.find(x => x.id == item.jenis_kamar_id);
     }
     $scope.delete = (param) => {
         pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
@@ -128,25 +128,82 @@ function kamarController($scope, kamarServices, pesan) {
         });
     }
 }
-function reservasiController($scope, reservasiServices, pesan) {
+function reservasiController($scope, reservasiServices, pesan, helperServices) {
     $scope.$emit("SendUp", "Data Kamar");
     $scope.datas = {};
     $scope.model = {};
     $scope.statusTabs = "Reservasi";
     reservasiServices.get().then((res) => {
-        $scope.reservasi = res.filter(x=>x.status=='Reservasi');
-        $scope.inap = res.filter(x=>x.status=='Terisi');
-        $scope.kosong = res.filter(x=>x.status=='Kosong');
+        res.forEach(element => {
+            element.lamanya = helperServices.selisih(element.checkin, element.checkout);
+            element.total = element.lamanya * parseFloat(element.price);
+            element.totalLaundry = 0;
+            element.totalMenu = 0;
+            element.menu.forEach(menu => {
+                element.totalMenu += parseFloat(menu.jumlah) * parseFloat(menu.harga);
+            });
+            element.laundry.forEach(laundry => {
+                element.totalLaundry += parseFloat(laundry.jumlah) * parseFloat(laundry.harga);
+            });
+        });
+        $scope.reservasi = res.filter(x => x.status == 'Check In');
+        $scope.inap = res.filter(x => x.status == 'Check Out');
+        $scope.kosong = res.filter(x => x.status == 'Kosong');
     })
 
-    $scope.save = () => {
+    $scope.viewDetail = (param) => {
+        $scope.model = param;
+    }
+
+    $scope.getTotal = (param) => {
+        var nilai = 0;
+        if (param == 'menu') {
+            $scope.model.menu.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        } else if (param == 'laundry') {
+            $scope.model.laundry.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        } else {
+            $scope.model.menu.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+            $scope.model.laundry.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        }
+        return nilai;
+    }
+
+    $scope.cek = (cek, param) => {
+        $scope.model = param;
+        if (cek == 'Cancel')
+            $("#akses").modal('show');
+        else
+            $scope.save();
+
+    }
+
+    $scope.login = (item) => {
+        var param = {};
+        param.password = item;
+        reservasiServices.akses(param).then(x=>{
+            $scope.delete($scope.model);
+        })
+    }
+    $scope.edit = (item) => {
+        $scope.model = angular.copy(item);
+    }
+
+    $scope.save = (item) => {
         pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
             reservasiServices.put($scope.model).then(res => {
-                if($scope.statusTabs=='Reservasi'){
+                if ($scope.statusTabs == 'Reservasi') {
                     $scope.inap.push(angular.copy($scope.model));
                     var index = $scope.reservasi.indexOf($scope.model);
                     $scope.reservasi.splice(index, 1);
-                }else if($scope.statusTabs=='Inap'){
+                } else if ($scope.statusTabs == 'Inap') {
                     $scope.kosong.push(angular.copy($scope.model));
                     var index = $scope.inap.indexOf($scope.model);
                     $scope.inap.splice(index, 1);
@@ -159,11 +216,7 @@ function reservasiController($scope, reservasiServices, pesan) {
         })
     }
 
-    $scope.edit = (item) => {
-        $scope.model = item;
-    }
-
-    $scope.setTabs =(item)=>{
+    $scope.setTabs = (item) => {
         $scope.statusTabs = item;
     }
     $scope.delete = (param) => {
@@ -185,13 +238,13 @@ function tambahanController($scope, tambahanServices, pesan) {
 
     $scope.save = () => {
         pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
-            if($scope.model.id){
+            if ($scope.model.id) {
                 tambahanServices.put($scope.model).then(res => {
                     $scope.model = {};
                     $('#fasilitas').modal('hide');
                     pesan.Success("Berhasil mengubah data");
                 })
-            }else{
+            } else {
                 tambahanServices.post($scope.model).then(res => {
                     $scope.model = {};
                     $('#fasilitas').modal('hide');
@@ -205,7 +258,7 @@ function tambahanController($scope, tambahanServices, pesan) {
         $scope.model = item;
     }
 
-    $scope.setTabs =(item)=>{
+    $scope.setTabs = (item) => {
         $scope.statusTabs = item;
     }
     $scope.delete = (param) => {
@@ -228,13 +281,13 @@ function laundryController($scope, laundryServices, pesan) {
 
     $scope.save = () => {
         pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
-            if($scope.model.id){
+            if ($scope.model.id) {
                 laundryServices.put($scope.model).then(res => {
                     $scope.model = {};
                     $('#fasilitas').modal('hide');
                     pesan.Success("Berhasil mengubah data");
                 })
-            }else{
+            } else {
                 laundryServices.post($scope.model).then(res => {
                     $scope.model = {};
                     $('#fasilitas').modal('hide');
@@ -248,7 +301,7 @@ function laundryController($scope, laundryServices, pesan) {
         $scope.model = item;
     }
 
-    $scope.setTabs =(item)=>{
+    $scope.setTabs = (item) => {
         $scope.statusTabs = item;
     }
     $scope.delete = (param) => {
@@ -271,13 +324,13 @@ function menuController($scope, menuServices, pesan) {
 
     $scope.save = () => {
         pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
-            if($scope.model.id){
+            if ($scope.model.id) {
                 menuServices.put($scope.model).then(res => {
                     $scope.model = {};
                     $('#fasilitas').modal('hide');
                     pesan.Success("Berhasil mengubah data");
                 })
-            }else{
+            } else {
                 menuServices.post($scope.model).then(res => {
                     $scope.model = {};
                     $('#fasilitas').modal('hide');
@@ -291,7 +344,7 @@ function menuController($scope, menuServices, pesan) {
         $scope.model = item;
     }
 
-    $scope.setTabs =(item)=>{
+    $scope.setTabs = (item) => {
         $scope.statusTabs = item;
     }
     $scope.delete = (param) => {
@@ -302,40 +355,119 @@ function menuController($scope, menuServices, pesan) {
         });
     }
 }
-function addController($scope, reservasiServices, pesan) {
+function addController($scope, reservasiServices, pesan, helperServices) {
     $scope.$emit("SendUp", "Data Menu Makanan");
     $scope.datas = [];
     $scope.model = {};
     $scope.statusTabs = "Reservasi";
     $scope.view = "";
-    var item = sessionStorage.getItem('biodata');
-    if(item){
-        item = JSON.parse(item);
-        $scope.model = item;
-        $scope.view = item.view;
-    }
-    $scope.next = (param)=>{
+    $scope.itemKamar = {};
+    reservasiServices.getAdd().then(res => {
+        $scope.datas = res;
+        var item = sessionStorage.getItem('biodata');
+        if (item) {
+            item = JSON.parse(item);
+            $scope.model = item;
+            $scope.view = item.view;
+        }
+    })
+
+    $scope.next = (param) => {
+        $scope.view = param;
+        $scope.itemKamar.menu = [];
+        $scope.itemKamar.laundry = [];
         $scope.model.view = param;
         $scope.model.tambahan = [];
         $scope.model.laundry = [];
         $scope.model.menu = [];
+        $scope.model.kamar = [];
+        $scope.data = {};
         sessionStorage.setItem('biodata', JSON.stringify($scope.model));
+    }
+
+    $scope.batal = () => {
+        sessionStorage.removeItem('biodata')
+        document.location.href = helperServices.url + "reservasi";
+    }
+
+    $scope.tambah = (param) => {
+        $scope.model.kamar.push(angular.copy(param))
+        sessionStorage.setItem('biodata', JSON.stringify($scope.model));
+    }
+
+    $scope.setItemLayanan = (param) => {
+        $scope.data = angular.copy(param);
+        $scope.data.harga = parseFloat($scope.data.harga);
+        console.log($scope.data);
+    }
+
+    $scope.getTotal = (param) => {
+        var nilai = 0;
+        if (param == 'kamar') {
+            $scope.model.kamar.forEach(element => {
+                var selisih = helperServices.selisih(element.checkin, element.checkout);
+                nilai += parseFloat(element.price * selisih);
+            });
+        } else if (param == 'menu') {
+            $scope.model.menu.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        } else if (param == 'laundry') {
+            $scope.model.laundry.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        } else {
+            $scope.model.kamar.forEach(element => {
+                var selisih = helperServices.selisih(element.checkin, element.checkout);
+                nilai += parseFloat(element.price * selisih);
+            });
+            $scope.model.menu.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+            $scope.model.laundry.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        }
+        return nilai;
+    }
+
+    $scope.totalKamar = (param) => {
+        return helperServices.selisih(param.checkin, param.checkout) * param.price;
+    }
+
+    $scope.addLayanan = (layanan) => {
+        console.log();
+        if (layanan == 'menu') {
+            $scope.model.menu.push(angular.copy($scope.data));
+        } else {
+            $scope.model.laundry.push(angular.copy($scope.data));
+        }
+        $scope.setLayanan = [];
+        $scope.itemLayanan = "";
+        $scope.data = {}
+        sessionStorage.setItem('biodata', JSON.stringify($scope.model));
+        $("#layananTambahan").modal('hide');
+    }
+
+    $scope.hapusLayanan = (layanan, data) => {
+        if (layanan == 'menu') {
+            var index = $scope.model.menu.indexOf(data);
+            $scope.model.menu.splice(index, 1);
+        } else {
+            var index = $scope.model.laundry.indexOf(data);
+            $scope.model.laundry.splice(index, 1);
+        }
+        data = {}
     }
     $scope.save = () => {
         pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
-            if($scope.model.id){
-                menuServices.put($scope.model).then(res => {
-                    $scope.model = {};
-                    $('#fasilitas').modal('hide');
-                    pesan.Success("Berhasil mengubah data");
-                })
-            }else{
-                menuServices.post($scope.model).then(res => {
-                    $scope.model = {};
-                    $('#fasilitas').modal('hide');
-                    pesan.Success("Berhasil mengubah data");
-                })
-            }
+            reservasiServices.post($scope.model).then(res => {
+                localStorage.removeItem('biodata');
+                document.location.href = helperServices.url + "/reservasi"
+                // $scope.model = {};
+                // $('#fasilitas').modal('hide');
+                // pesan.Success("Berhasil mengubah data");
+            })
         })
     }
 
@@ -343,7 +475,7 @@ function addController($scope, reservasiServices, pesan) {
         $scope.model = item;
     }
 
-    $scope.setTabs =(item)=>{
+    $scope.setTabs = (item) => {
         $scope.statusTabs = item;
     }
     $scope.delete = (param) => {
@@ -353,4 +485,5 @@ function addController($scope, reservasiServices, pesan) {
             })
         });
     }
+
 }

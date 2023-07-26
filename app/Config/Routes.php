@@ -93,7 +93,11 @@ $routes->group('reservasi', function ($routes) {
     $routes->get('', 'Admin\Reservasi::index');
     $routes->get('pesanan_add', 'Admin\Reservasi::tambah');
     $routes->get('store', 'Admin\Reservasi::store');
+    $routes->post('post', 'Admin\Reservasi::post');
+    $routes->post('akses', 'Admin\Reservasi::akses');
+    $routes->get('store_add', 'Admin\Reservasi::storeadd');
     $routes->put('put', 'Admin\Reservasi::update');
+    $routes->delete('delete/(:any)', 'Admin\Reservasi::deleted/$1');
 });
 
 $routes->group('rooms', function ($routes) {

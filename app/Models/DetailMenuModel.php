@@ -14,6 +14,6 @@ class DetailMenuModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['reservasi_id', 'menu_id'];
+    protected $allowedFields    = ['reservasi_id', 'menu_id', 'jumlah'];
 
 }

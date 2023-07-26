@@ -14,6 +14,6 @@ class DetailLaundryModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['reservasi_id', 'laundry_id'];
+    protected $allowedFields    = ['reservasi_id', 'laundry_id', 'jumlah'];
 
 }

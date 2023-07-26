@@ -361,10 +361,32 @@ function reservasiServices($http, $q, helperServices, AuthService, pesan) {
     service.data = [];
     return {
         get: get,
+        getAdd: getAdd,
         post: post,
         put: put,
+        akses:akses,
         deleted: deleted
     };
+
+    function akses(param) {
+        var def = $q.defer();
+        $http({
+            method: 'post',
+            url: controller + 'akses',
+            data: param,
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
+                service.data = res.data;
+                def.resolve(res.data);
+            },
+            (err) => {
+                message.error(err.data.message);
+                def.reject(err);
+            }
+        );
+        return def.promise;
+    }
 
     function get() {
         var def = $q.defer();
@@ -375,6 +397,24 @@ function reservasiServices($http, $q, helperServices, AuthService, pesan) {
         }).then(
             (res) => {
                 service.data = res.data;
+                def.resolve(res.data);
+            },
+            (err) => {
+                message.error(err.data.message);
+                def.reject(err);
+            }
+        );
+        return def.promise;
+    }
+
+    function getAdd() {
+        var def = $q.defer();
+        $http({
+            method: 'get',
+            url: controller + 'store_add',
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
                 def.resolve(res.data);
             },
             (err) => {
@@ -436,7 +476,7 @@ function reservasiServices($http, $q, helperServices, AuthService, pesan) {
         var def = $q.defer();
         $http({
             method: 'delete',
-            url: controller + "/delete/" + param.id,
+            url: controller + "/delete/" + param.tamu_id,
             headers: AuthService.getHeader()
         }).then(
             (res) => {

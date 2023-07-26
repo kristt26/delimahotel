@@ -14,5 +14,5 @@ class TamuModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama','gender','alamat','telp', 'jenis_identitas', 'no_identitas'];
+    protected $allowedFields    = ['nama','gender','alamat','telp', 'jenis_identitas', 'no_identitas', 'email'];
 }

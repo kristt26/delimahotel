@@ -49,6 +49,19 @@ function helperServices($location) {
         return url.get(item);
     }
 
+    service.selisih = (tgl1, tgl2)=>{
+        var tanggal1 = new Date(tgl1);
+        var tanggal2 = new Date(tgl2);
+        tanggal1.setHours(0, 0, 0, 0);
+        tanggal2.setHours(0, 0, 0, 0);
+        var selisih = Math.abs(tanggal1 - tanggal2);
+        // Selisih akan dalam millisecond atau mili detik
+        
+        var hariDalamMillisecond = 1000 * 60 * 60 * 24; // 1000 * 1 menit * 1 jam * 1 hari
+        
+        return Math.round(selisih / hariDalamMillisecond);
+    }
+
     service.lastPath = () => {
         const a = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
         return a;
