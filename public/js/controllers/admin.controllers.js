@@ -8,6 +8,8 @@ angular.module('adminctrl', [])
     .controller('laundryController', laundryController)
     .controller('menuController', menuController)
     .controller('addController', addController)
+    .controller('manajemenUserController', manajemenUserController)
+    .controller('laporanController', laporanController)
 
     ;
 
@@ -182,7 +184,6 @@ function reservasiController($scope, reservasiServices, pesan, helperServices) {
             $("#akses").modal('show');
         else
             $scope.save();
-
     }
 
     $scope.login = (item) => {
@@ -196,20 +197,23 @@ function reservasiController($scope, reservasiServices, pesan, helperServices) {
         $scope.model = angular.copy(item);
     }
 
-    $scope.save = (item) => {
-        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+    $scope.checkout = (item) => {
+        pesan.dialog('Yakin ingin check out?', "Ya", "Tidak", 'info').then(x=>{
+            reservasiServices.put(item).then(res=>{
+
+            })
+        })
+    }
+
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin check out?', 'Yes', 'No').then(res => {
+            $.LoadingOverlay("show");
             reservasiServices.put($scope.model).then(res => {
-                if ($scope.statusTabs == 'Reservasi') {
-                    $scope.inap.push(angular.copy($scope.model));
-                    var index = $scope.reservasi.indexOf($scope.model);
-                    $scope.reservasi.splice(index, 1);
-                } else if ($scope.statusTabs == 'Inap') {
-                    $scope.kosong.push(angular.copy($scope.model));
-                    var index = $scope.inap.indexOf($scope.model);
-                    $scope.inap.splice(index, 1);
-                }
+                $scope.inap.push(angular.copy($scope.model))
+                var index = $scope.reservasi.indexOf($scope.model);
+                $scope.reservasi.splice(index, 1);
                 $scope.model = {};
-                $('#fasilitas').modal('hide');
+                $.LoadingOverlay("hide");
                 pesan.Success("Berhasil mengubah data");
 
             })
@@ -355,6 +359,50 @@ function menuController($scope, menuServices, pesan) {
         });
     }
 }
+
+function manajemenUserController($scope, manajemenUserServices, pesan) {
+    $scope.$emit("SendUp", "Data Menu Makanan");
+    $scope.datas = [];
+    $scope.model = {};
+    $scope.statusTabs = "Reservasi";
+    manajemenUserServices.get().then((res) => {
+        $scope.datas = res;
+        console.log(res);
+    })
+
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            if ($scope.model.id) {
+                manajemenUserServices.put($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            } else {
+                manajemenUserServices.post($scope.model).then(res => {
+                    $scope.model = {};
+                    $('#fasilitas').modal('hide');
+                    pesan.Success("Berhasil mengubah data");
+                })
+            }
+        })
+    }
+
+    $scope.edit = (item) => {
+        $scope.model = item;
+    }
+
+    $scope.setTabs = (item) => {
+        $scope.statusTabs = item;
+    }
+    $scope.delete = (param) => {
+        pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
+            manajemenUserServices.deleted(param).then(res => {
+                pesan.Success("Berhasil menghapus data");
+            })
+        });
+    }
+}
 function addController($scope, reservasiServices, pesan, helperServices) {
     $scope.$emit("SendUp", "Data Menu Makanan");
     $scope.datas = [];
@@ -459,10 +507,14 @@ function addController($scope, reservasiServices, pesan, helperServices) {
         }
         data = {}
     }
+    
     $scope.save = () => {
         pesan.dialog('Yakin ingin?', 'Yes', 'Tidak').then(res => {
+            var param = angular.copy($scope.model);
+            param.checkin = helperServices.dateTimeToString(new Date($scope.model.checkin));
+            param.checkout = helperServices.dateTimeToString(new Date($scope.model.checkout));
             reservasiServices.post($scope.model).then(res => {
-                localStorage.removeItem('biodata');
+                sessionStorage.removeItem('biodata');
                 document.location.href = helperServices.url + "/reservasi"
                 // $scope.model = {};
                 // $('#fasilitas').modal('hide');
@@ -486,4 +538,106 @@ function addController($scope, reservasiServices, pesan, helperServices) {
         });
     }
 
+}
+
+function laporanController($scope, laporanServices, pesan, helperServices) {
+    $scope.$emit("SendUp", "Data Kamar");
+    $scope.datas = {};
+    $scope.model = {};
+    $scope.statusTabs = "Reservasi";
+    laporanServices.get().then((res) => {
+        res.forEach(element => {
+            element.lamanya = helperServices.selisih(element.checkin, element.checkout);
+            element.total = element.lamanya * parseFloat(element.price);
+            element.totalLaundry = 0;
+            element.totalMenu = 0;
+            element.menu.forEach(menu => {
+                element.totalMenu += parseFloat(menu.jumlah) * parseFloat(menu.harga);
+            });
+            element.laundry.forEach(laundry => {
+                element.totalLaundry += parseFloat(laundry.jumlah) * parseFloat(laundry.harga);
+            });
+        });
+        $scope.reservasi = res.filter(x => x.status == 'Check In');
+        $scope.inap = res.filter(x => x.status == 'Check Out');
+        $scope.kosong = res.filter(x => x.status == 'Kosong');
+    })
+
+    $scope.viewDetail = (param) => {
+        $scope.model = param;
+    }
+
+    $scope.getTotal = (param) => {
+        var nilai = 0;
+        if (param == 'menu') {
+            $scope.model.menu.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        } else if (param == 'laundry') {
+            $scope.model.laundry.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        } else {
+            $scope.model.menu.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+            $scope.model.laundry.forEach(element => {
+                nilai += (parseFloat(element.harga) * parseFloat(element.jumlah));
+            });
+        }
+        return nilai;
+    }
+
+    $scope.cek = (cek, param) => {
+        $scope.model = param;
+        if (cek == 'Cancel')
+            $("#akses").modal('show');
+        else
+            $scope.save();
+    }
+
+    $scope.login = (item) => {
+        var param = {};
+        param.password = item;
+        laporanServices.akses(param).then(x=>{
+            $scope.delete($scope.model);
+        })
+    }
+    $scope.edit = (item) => {
+        $scope.model = angular.copy(item);
+    }
+
+    $scope.checkout = (item) => {
+        pesan.dialog('Yakin ingin check out?', "Ya", "Tidak", 'info').then(x=>{
+            laporanServices.put(item).then(res=>{
+
+            })
+        })
+    }
+
+    $scope.save = () => {
+        pesan.dialog('Yakin ingin check out?', 'Yes', 'No').then(res => {
+            $.LoadingOverlay("show");
+            laporanServices.put($scope.model).then(res => {
+                $scope.inap.push(angular.copy($scope.model))
+                var index = $scope.reservasi.indexOf($scope.model);
+                $scope.reservasi.splice(index, 1);
+                $scope.model = {};
+                $.LoadingOverlay("hide");
+                pesan.Success("Berhasil mengubah data");
+
+            })
+        })
+    }
+
+    $scope.setTabs = (item) => {
+        $scope.statusTabs = item;
+    }
+    $scope.delete = (param) => {
+        pesan.dialog('Yakin ingin?', 'Ya', 'Tidak').then(res => {
+            laporanServices.deleted(param).then(res => {
+                pesan.Success("Berhasil menghapus data");
+            })
+        });
+    }
 }

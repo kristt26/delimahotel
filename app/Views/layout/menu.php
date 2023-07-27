@@ -5,39 +5,59 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                            <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Manj. Kamar</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="ui-basic">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="<?= base_url('jenis') ?>">Jenis Kamar</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="<?= base_url('kamar') ?>">Kamar</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#layanan" aria-expanded="false" aria-controls="layanan">
-                            <i class="icon-tag menu-icon"></i>
-                            <span class="menu-title">Layanan</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="layanan">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="<?= base_url('tambahan') ?>">Tambahan</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="<?= base_url('laundry') ?>">Laundry</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="<?= base_url('menu') ?>">Menu</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('reservasi') ?>">
-                            <i class="icon-book menu-icon"></i>
-                            <span class="menu-title">Pesanan</span>
-                        </a>
-                    </li>
+                    <?php if (session()->get('akses')=='Manajer') : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('manajemen_user') ?>">
+                                <i class="fa fa-users menu-icon" aria-hidden="true"></i>
+                                <span class="menu-title">Manajemen User</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (session()->get('akses')=='Manajer' || session()->get('akses')=='Admin') : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="icon-layout menu-icon"></i>
+                                <span class="menu-title">Manj. Kamar</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url('jenis') ?>">Jenis Kamar</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url('kamar') ?>">Kamar</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#layanan" aria-expanded="false" aria-controls="layanan">
+                                <i class="icon-tag menu-icon"></i>
+                                <span class="menu-title">Layanan</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="layanan">
+                                <ul class="nav flex-column sub-menu">
+                                    <!-- <li class="nav-item"> <a class="nav-link" href="<?= base_url('tambahan') ?>">Tambahan</a></li> -->
+                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url('laundry') ?>">Laundry</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="<?= base_url('menu') ?>">Menu</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (session()->get('akses')=='Front Office') : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('reservasi') ?>">
+                                <i class="icon-book menu-icon"></i>
+                                <span class="menu-title">Pesanan</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (session()->get('akses')=='Manajer') : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('laporan') ?>">
+                                <i class="fa fa-file menu-icon" aria-hidden="true"></i>
+                                <span class="menu-title">Laporan</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('auth/logout') ?>">
                             <i class="icon-content-left menu-icon"></i>

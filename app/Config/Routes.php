@@ -11,7 +11,7 @@ $routes = Services::routes();
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('Auth');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -29,9 +29,10 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+// $routes->get('/', 'Home::index');
+$routes->get('/', 'Auth::index');
 $routes->group('auth', function ($routes) {
-    $routes->get('', 'Auth::index');
+    $routes->get('/', 'Auth::index');
     $routes->post('login', 'Auth::login');
     $routes->get('logout', 'Auth::logout');
 });
@@ -39,20 +40,33 @@ $routes->group('dashboard', function ($routes) {
     $routes->get('', 'Admin\Dashboard::index');
 });
 
-$routes->group('jenis', function ($routes) {
+$routes->group('manajemen_user', ['filter' => 'manajer'], function ($routes) {
+    $routes->get('', 'Admin\ManajemenUser::index');
+    $routes->get('store', 'Admin\ManajemenUser::store');
+    $routes->post('post', 'Admin\ManajemenUser::post');
+    $routes->put('put', 'Admin\ManajemenUser::put');
+    $routes->delete('delete/(:any)', 'Admin\ManajemenUser::deleted/$1');
+});
+
+$routes->group('laporan', ['filter' => 'manajer'], function ($routes) {
+    $routes->get('', 'Admin\Laporan::index');
+    $routes->get('store', 'Admin\Laporan::store');
+});
+
+$routes->group('jenis', ['filter' => 'auth'],function ($routes) {
     $routes->get('', 'Admin\Jenis::index');
     $routes->get('store', 'Admin\Jenis::store');
     $routes->post('post', 'Admin\Jenis::post');
     $routes->put('put', 'Admin\Jenis::put');
 });
 
-$routes->group('fasilitas', function ($routes) {
+$routes->group('fasilitas', ['filter' => 'auth'],function ($routes) {
     $routes->get('store', 'Admin\Fasilitas::store');
     $routes->post('post', 'Admin\Fasilitas::post');
     $routes->put('put', 'Admin\Fasilitas::put');
 });
 
-$routes->group('kamar', function ($routes) {
+$routes->group('kamar', ['filter' => 'auth'],function ($routes) {
     $routes->get('', 'Admin\Kamar::index');
     $routes->get('store', 'Admin\Kamar::store');
     $routes->post('post', 'Admin\Kamar::post');
@@ -68,7 +82,7 @@ $routes->group('tambahan', function ($routes) {
     $routes->delete('delete/(:any)', 'Admin\Tambahan::deleted/$1');
 });
 
-$routes->group('menu', function ($routes) {
+$routes->group('menu', ['filter' => 'auth'],function ($routes) {
     $routes->get('', 'Admin\Menu::index');
     $routes->get('store', 'Admin\Menu::store');
     $routes->post('post', 'Admin\Menu::post');
@@ -76,7 +90,7 @@ $routes->group('menu', function ($routes) {
     $routes->delete('delete/(:any)', 'Admin\Menu::deleted/$1');
 });
 
-$routes->group('laundry', function ($routes) {
+$routes->group('laundry', ['filter' => 'auth'],function ($routes) {
     $routes->get('', 'Admin\Laundry::index');
     $routes->get('store', 'Admin\Laundry::store');
     $routes->post('post', 'Admin\Laundry::post');
@@ -89,7 +103,7 @@ $routes->group('laundry', function ($routes) {
 
 
 
-$routes->group('reservasi', function ($routes) {
+$routes->group('reservasi', ['filter' => 'front'], function ($routes) {
     $routes->get('', 'Admin\Reservasi::index');
     $routes->get('pesanan_add', 'Admin\Reservasi::tambah');
     $routes->get('store', 'Admin\Reservasi::store');

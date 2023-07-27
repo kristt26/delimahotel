@@ -1,6 +1,6 @@
 <?= $this->extend('layout/admin') ?>
 <?= $this->section('content') ?>
-<div ng-controller="reservasiController">
+<div ng-controller="laporanController">
     <div class="row">
         <div class="col-md-12 grid-margin">
             <div class="row">
@@ -62,8 +62,6 @@
                                                     <td class="text-right">{{item.totalLaundry | currency}}</td>
                                                     <td>
                                                         <button class="btn btn-primary btn-sm" ng-click="viewDetail(item)" data-toggle="modal" data-target="#fasilitas"><i class="mdi mdi-playlist-check"></i></button>
-                                                        <button class="btn btn-warning btn-sm" ng-click="cek('CheckOut', item)"><i class="mdi mdi-logout"></i></button>
-                                                        <button class="btn btn-danger btn-sm" ng-click="cek('Cancel', item)"><i class="mdi mdi-close-octagon-outline"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>

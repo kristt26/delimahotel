@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group  col-md-4">
                                 <label><sup class="text-danger">*</sup> No. Identitas</label>
-                                <input type="text" class="form-control form-control-sm" ng-model="model.no_identitas" placeholder="No harus sesuai yang tertera" required>
+                                <input type="text" class="form-control form-control-sm" ng-model="model.no_identitas" minlength="16" maxlength="16" placeholder="No harus sesuai yang tertera" required>
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="nama"><sup class="text-danger">*</sup> Nama</label>
@@ -83,11 +83,11 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Tanggal Check In</label>
-                                <input type="date" class="form-control form-control-sm" ng-model="itemKamar.checkout" required>
+                                <input type="date" class="form-control form-control-sm" ng-model="itemKamar.checkin" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Tanggal Check Out</label>
-                                <input type="date" class="form-control form-control-sm" ng-model="itemKamar.checkin" required>
+                                <input type="date" class="form-control form-control-sm" ng-model="itemKamar.checkout" required>
                             </div>
                         </div>
                         <div class="form-group">

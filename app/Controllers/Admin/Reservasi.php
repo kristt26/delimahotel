@@ -104,6 +104,7 @@ class Reservasi extends BaseController
             $value->kamar = $kamar->select(" `kamar`.*")
                 ->join("reservasi", "`kamar`.`id` = `reservasi`.`kamar_id`", "LEFT")
                 ->where('jenis_kamar_id', $value->id)
+                ->where("(status in('Check Out') OR status IS NULL)")
                 ->findAll();
         }
         $data['laundry'] = $laundry->findAll();
@@ -115,7 +116,7 @@ class Reservasi extends BaseController
     {
         $data = $this->request->getJSON();
         try {
-            if ($this->reservasi->update($data->id, ['status' => $data->status])) {
+            if ($this->reservasi->update($data->id, ['status' => 'Check Out'])) {
                 return $this->respondUpdated(true);
             } else {
                 throw new \Exception("Error Processing Request", 1);

@@ -21,7 +21,7 @@ class Auth extends BaseController
         } else {
             $data = $this->user->countAllResults();
             if ($data == 0) {
-                $this->user->insert(['username' => 'Administrator', 'password' => password_hash('Administrator#1', PASSWORD_DEFAULT)]);
+                $this->user->insert(['nama' => 'Administrator', 'username' => 'Administrator', 'password' => password_hash('Administrator#1', PASSWORD_DEFAULT)]);
             }
             return view('auth');
         }
@@ -35,7 +35,8 @@ class Auth extends BaseController
         if (!is_null($query)) {
             if (password_verify($data->password, $query['password'])) {
                 $sessi = [
-                    'akses' => "Admin",
+                    'nama' => $query['nama'],
+                    'akses' => $query['akses'],
                     'is_Login'  => TRUE
                 ];
                 session()->set($sessi);
