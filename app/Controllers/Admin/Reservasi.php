@@ -130,7 +130,7 @@ class Reservasi extends BaseController
     {
         $data = $this->request->getJSON();
         $user = new UserModel();
-        $itemUser = $user->asObject()->where('akses', 'Admin')->first();
+        $itemUser = $user->asObject()->where('akses', 'Manajer')->first();
         if ($itemUser) {
             if (password_verify($data->password, $itemUser->password))
                 return $this->respond(true);
