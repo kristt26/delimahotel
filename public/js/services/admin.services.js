@@ -13,12 +13,13 @@ angular.module('admin.service', [])
     ;
 
 function dashboardServices($http, $q, helperServices, AuthService) {
-    var controller = helperServices.url + 'home/';
+    var controller = helperServices.url + 'dashboard/';
     var service = {};
     service.data = [];
     service.instance = false;
     return {
         get: get,
+        temp: temp,
         getLayanan:getLayanan
     };
 
@@ -27,6 +28,23 @@ function dashboardServices($http, $q, helperServices, AuthService) {
         $http({
             method: 'get',
             url: controller + 'read',
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+            }
+        );
+        return def.promise;
+    }
+
+    function temp() {
+        var def = $q.defer();
+        $http({
+            method: 'get',
+            url: "https://api.openweathermap.org/data/2.5/weather?lat=-2.5757434254081115&lon=140.6866555953247&units=metric&appid=346f18b7fb92963448e318862376a0ba",
             headers: AuthService.getHeader()
         }).then(
             (res) => {

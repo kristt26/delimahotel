@@ -38,6 +38,7 @@ $routes->group('auth', function ($routes) {
 });
 $routes->group('dashboard', function ($routes) {
     $routes->get('', 'Admin\Dashboard::index');
+    $routes->get('read', 'Admin\Dashboard::store');
 });
 
 $routes->group('manajemen_user', ['filter' => 'manajer'], function ($routes) {

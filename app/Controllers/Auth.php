@@ -21,7 +21,7 @@ class Auth extends BaseController
         } else {
             $data = $this->user->countAllResults();
             if ($data == 0) {
-                $this->user->insert(['nama' => 'Administrator', 'username' => 'Administrator', 'password' => password_hash('Administrator#1', PASSWORD_DEFAULT)]);
+                $this->user->insert(['nama' => 'Administrator', 'username' => 'Administrator', 'password' => password_hash('Administrator#1', PASSWORD_DEFAULT), 'akses'=>'Manajer']);
             }
             return view('auth');
         }

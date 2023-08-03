@@ -17,9 +17,14 @@ function dashboardController($scope, dashboardServices) {
     $scope.$emit("SendUp", "Dashboard");
     $scope.datas = {};
     $scope.title = "Dashboard";
-    // dashboardServices.get().then(res=>{
-    //     $scope.datas = res;
-    // })
+    dashboardServices.get().then(res=>{
+        $scope.datas = res;
+        console.log(res);
+    })
+    dashboardServices.temp().then(res=>{
+        $scope.temp = res;
+        console.log(res);
+    })
 }
 
 function jenisController($scope, jenisServices, pesan, fasilitasServices) {
